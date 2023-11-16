@@ -78,7 +78,6 @@ describe('API put car', () => {
     const check = await request(app).post('/v1/auth/login').send(admin);
     const res = JSON.parse(check.text);
     const token = res.accessToken;
-    console.log(token);
     const car = {
       name: 'Toyota 1',
       price: 3000000,
@@ -100,7 +99,6 @@ describe('API put car', () => {
     const check = await request(app).post('/v1/auth/login').send(failedAdmin);
     const res = JSON.parse(check.text);
     const failedToken = res.accessToken;
-    console.log(failedToken);
     const failedCar = {
       name: 'Toyota 1',
       price: 3000000,
