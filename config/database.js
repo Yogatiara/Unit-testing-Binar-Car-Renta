@@ -4,6 +4,11 @@ const {
   DB_NAME = 'bcr',
   DB_HOST = '127.0.0.1',
   DB_PORT = '5432',
+  RAILWAY_DB_USER,
+  RAILWAY_DB_PASSWORD,
+  RAILWAY_DB_HOST,
+  RAILWAY_DB_PORT,
+  RAILWAY_DB_NAME
 } = process.env;
 
 // process.env.development = local
@@ -12,11 +17,11 @@ const {
 
 module.exports = {
   development: {
-    username: DB_USER,
-    password: DB_PASSWORD,
-    database: `${DB_NAME}_development`,
-    host: DB_HOST,
-    port: DB_PORT,
+    username: RAILWAY_DB_USER,
+    password: RAILWAY_DB_PASSWORD,
+    database: RAILWAY_DB_NAME,
+    host: RAILWAY_DB_HOST,
+    port: RAILWAY_DB_PORT,
     dialect: 'postgres',
   },
   test: {
