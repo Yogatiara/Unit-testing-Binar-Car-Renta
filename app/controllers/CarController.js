@@ -1,5 +1,7 @@
-const { Op } = require("sequelize");
-const ApplicationController = require("./ApplicationController");
+/* eslint-disable no-undef */
+/* eslint-disable prefer-const */
+const { Op } = require('sequelize');
+const ApplicationController = require('./ApplicationController');
 
 class CarController extends ApplicationController {
   constructor({ carModel, userCarModel, dayjs }) {
@@ -10,8 +12,6 @@ class CarController extends ApplicationController {
   }
 
   handleListCars = async (req, res) => {
-    const offset = this.getOffsetFromRequest(req);
-    const limit = req.query.pageSize;
     const query = this.getListQueryFromRequest(req);
     const cars = await this.carModel.findAll(query);
     const carCount = await this.carModel.count({
@@ -36,7 +36,9 @@ class CarController extends ApplicationController {
 
   handleCreateCar = async (req, res) => {
     try {
-      const { name, price, size, image } = req.body;
+      const {
+        name, price, size, image,
+      } = req.body;
 
       const car = await this.carModel.create({
         name,
@@ -62,7 +64,7 @@ class CarController extends ApplicationController {
       let { rentStartedAt, rentEndedAt } = req.body;
       const car = await this.getCarFromRequest(req);
 
-      if (!rentEndedAt) rentEndedAt = this.dayjs(rentStartedAt).add(1, "day");
+      if (!rentEndedAt) rentEndedAt = this.dayjs(rentStartedAt).add(1, 'day');
 
       const activeRent = await this.userCarModel.findOne({
         where: {
@@ -76,7 +78,7 @@ class CarController extends ApplicationController {
         },
       });
 
-      if (!!activeRent) {
+      if (activeRent) {
         const err = new CarAlreadyRentedError(car);
         res.status(422).json(err);
         return;
@@ -97,7 +99,9 @@ class CarController extends ApplicationController {
 
   handleUpdateCar = async (req, res) => {
     try {
-      const { name, price, size, image } = req.body;
+      const {
+        name, price, size, image,
+      } = req.body;
 
       // const car = this.getCarFromRequest(req);
 
@@ -114,11 +118,11 @@ class CarController extends ApplicationController {
             id: req.params.id,
           },
           returning: true,
-        }
+        },
       );
 
       res.status(200).json({
-        status: "Success",
+        status: 'Success',
         data: {
           newCar,
         },
@@ -149,12 +153,12 @@ class CarController extends ApplicationController {
     const where = {};
     const include = {
       model: this.userCarModel,
-      as: "userCar",
+      as: 'userCar',
       required: false,
     };
 
-    if (!!size) where.size = size;
-    if (!!availableAt) {
+    if (size) where.size = size;
+    if (availableAt) {
       include.where = {
         rentEndedAt: {
           [Op.gte]: availableAt,

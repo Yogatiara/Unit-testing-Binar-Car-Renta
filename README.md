@@ -10,3 +10,11 @@ Tugas kalian disini adalah:
 3. Coverage minimal 70%
 
 Good luck!
+
+### Hasil Testing
+
+![My Image](./public/images/hasil-testing.png)
+
+### API URL
+
+[unit-testing-binar-car-rental-production.up.railway.app](unit-testing-binar-car-rental-production.up.railway.app)
